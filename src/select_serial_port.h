@@ -28,7 +28,7 @@ class SelectSerialPort : public QDialog
 public:
   explicit SelectSerialPort(QWidget *parent = nullptr);
   ~SelectSerialPort();
-  QString portShortName;
+  QString portName;
 
 private slots:
   void on_buttonBox_accepted();

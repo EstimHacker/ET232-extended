@@ -16,7 +16,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui serialport widgets
+QT += core gui serialport widgets mqtt
 
 TARGET = ET232_extended
 TEMPLATE = app
@@ -34,6 +34,7 @@ SOURCES += \
     mainwindow_modes.cpp \
     mainwindow_switch.cpp \
     mainwindow_controls.cpp \
+    mqttconnector.cpp \
     serial_worker.cpp \
     mainwindow_synchro.cpp \
     select_serial_port.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     gui_info.h \
     macros.h \
     mainwindow.h \
+    mqttconnector.h \
     version.h \
     version.rc \
     serial_worker.h \

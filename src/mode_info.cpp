@@ -22,7 +22,12 @@ ModeInfo::ModeInfo(const char* name, int et_code, std::initializer_list<ParamInf
     for (auto item : il) list.push_back(item);
     text = info;
     comboIndex = A = B = MA = 0;
-    MAX = 135;
+    MAX_A = 135;
+    MAX_B = 135;
+    WARN_A = 135;
+    WARN_B = 135;
+    lastMAX_A = 135;
+    lastMAX_B = 135;
     paramSrc = none;
 }
 

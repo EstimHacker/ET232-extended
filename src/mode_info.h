@@ -36,7 +36,7 @@ public:
   ParamInfo* operator[] (int addr);
   ParamInfo* operator[] (QString key);
   std::vector<ParamInfo> list;
-  int comboIndex, etCode, A, B, MA, MAX;
+  int comboIndex, etCode, A, B, MA, MAX_A, MAX_B, WARN_A, WARN_B, lastMAX_A, lastMAX_B;
   enum src {none=0, et, file, user};
   src paramSrc;
   QString modeName;

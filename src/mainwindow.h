@@ -18,6 +18,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #include "serial_worker.h"
 #include "mode_info.h"
 #include "gui_info.h"
+#include "mqttconnector.h"
 
 #include <QMainWindow>
 #include <QMessageBox>
@@ -117,6 +118,8 @@ public slots:
     void agreement();
     void processGrTimer();
     void processRefreshSlidersTimer();
+    void valueReceived(const ReceivedValue& value);
+    void mqttConnected(const bool connected);
 
 //---- Application Menu ----//
 public slots:
@@ -249,7 +252,8 @@ private slots:
 
 //---- Controls ----//
 private slots:
-    void on_spinBox_Control_MAX_valueChanged(int value);
+    void on_spinBox_Control_MAX_A_valueChanged(int value);
+    void on_spinBox_Control_MAX_B_valueChanged(int value);
     void on_verticalSlider_Control_A_valueChanged(int value);
     void on_verticalSlider_Control_MA_valueChanged(int value);
     void on_verticalSlider_Control_B_valueChanged(int value);
@@ -291,14 +295,17 @@ private:
     void      setSlidersFromET232(const ModeInfo* mode);
     void      setSlidersFromMem(const ModeInfo* mode);
     void      updateCurrentValue(int addr, int value);
+    void      relative_MAX_A(int value);
+    void      relative_MAX_B(int value);
 
     Ui::MainWindow *ui;
-    QThread*        thread;
-    SerialWorker*   worker;
-    QTimer*         grTimer;
-    QTimer*         refreshSlidersTimer;
-    QGraphicsScene* scene;
-    QGraphicsView * view;
+    QThread*        thread = nullptr;
+    SerialWorker*   worker = nullptr;
+    QTimer*         grTimer = nullptr;
+    QTimer*         refreshSlidersTimer = nullptr;
+    MqttConnector   *mqtt = nullptr;
+    QGraphicsScene* scene = nullptr;
+    QGraphicsView * view = nullptr;
     ModeInfo*       currentModeInfo = getOffInfo();
     QString         currentModeFileName;
     QString         allModesFileName;

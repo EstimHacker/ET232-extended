@@ -43,16 +43,18 @@ SelectSerialPort::SelectSerialPort(QWidget *parent) :
 
 void SelectSerialPort::on_buttonBox_accepted()
 {
-    QString portLongName = ui->serialPortComboBox->currentText();
+    portName = ui->serialPortComboBox->currentText();
+    portName = portName.left(portName.indexOf(":"));
 
+    /*
     if( ! portLongName.contains(QRegExp("^COM\\d:")) ){
         QMessageBox::critical(this, "Synchro: invalid port",
                                     "Synchronization with ET232: FAILED\ninvalid port.",
                                      QMessageBox::Cancel);
         return;
     }
-
-    portShortName = portLongName.left(4);
+    portName = portLongName.left(4);
+    */
 }
 
 SelectSerialPort::~SelectSerialPort()

@@ -39,7 +39,7 @@ signals:
   void sendPeekResult(int addr, int value);
 
 private:
-  QSerialPort* serial;
+  QSerialPort* serial = nullptr;
 };
 
 #endif // SERIAL_WORKER_H

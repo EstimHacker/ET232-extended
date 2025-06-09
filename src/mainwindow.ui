@@ -344,11 +344,25 @@ font: 87 8pt &quot;Arial Black&quot;;</string>
      </widget>
     </item>
     <item row="1" column="4">
-     <widget class="QLabel" name="label_info_mode">
-      <property name="text">
-       <string>Off</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_info_mode">
+        <property name="text">
+         <string>Off</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="mqttConnected">
+        <property name="text">
+         <string>MQTT connected</string>
+        </property>
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_select_mode">
@@ -2377,7 +2391,7 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="label_Control_A">
          <property name="text">
           <string>A</string>
@@ -2397,14 +2411,17 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
+       <item row="6" column="1">
         <widget class="QLabel" name="label_Control_MAX">
          <property name="text">
-          <string>MAX:</string>
+          <string>MAX</string>
          </property>
+		 <property name="alignment">
+		  <set>Qt::AlignCenter</set>
+		 </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="5" column="1">
         <widget class="QLabel" name="label_Control_MA">
          <property name="text">
           <string>MA</string>
@@ -2416,6 +2433,12 @@ p, li { white-space: pre-wrap; }
        </item>
        <item row="8" column="0">
         <widget class="QSlider" name="verticalSlider_Control_A">
+         <property name="minimumSize">
+          <size>
+           <width>48</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximum">
           <number>255</number>
          </property>
@@ -2430,7 +2453,7 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="5" column="0" colspan="3">
+       <item row="4" column="0" colspan="3">
         <widget class="Line" name="line_Control_Bottom">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -2446,6 +2469,12 @@ p, li { white-space: pre-wrap; }
        </item>
        <item row="8" column="2">
         <widget class="QSlider" name="verticalSlider_Control_B">
+         <property name="minimumSize">
+          <size>
+           <width>48</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="maximum">
           <number>255</number>
          </property>
@@ -2460,7 +2489,7 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="6" column="2">
+       <item row="5" column="2">
         <widget class="QLabel" name="label_Control_B">
          <property name="text">
           <string>B</string>
@@ -2480,8 +2509,24 @@ p, li { white-space: pre-wrap; }
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QSpinBox" name="spinBox_Control_MAX">
+       <item row="6" column="0">
+        <widget class="QSpinBox" name="spinBox_Control_MAX_A">
+         <property name="minimum">
+          <number>35</number>
+         </property>
+         <property name="maximum">
+          <number>255</number>
+         </property>
+         <property name="singleStep">
+          <number>5</number>
+         </property>
+         <property name="value">
+          <number>135</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QSpinBox" name="spinBox_Control_MAX_B">
          <property name="minimum">
           <number>35</number>
          </property>

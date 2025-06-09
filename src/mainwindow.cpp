@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     currentModeFileName = opt.currentModePath();
 
     // fire the splash screen
-    QTimer::singleShot(10, this, SLOT(agreement()));
+    //QTimer::singleShot(10, this, SLOT(agreement()));
 
     thread = new QThread;
     worker = new SerialWorker();
@@ -91,6 +91,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(grTimer, SIGNAL(timeout()), this, SLOT(processGrTimer()));
 
     grTimer->start(10);
+
+    mqtt = new MqttConnector(this, "mqtt-server", "et232", "et232-control");
+    connect(mqtt, &MqttConnector::valueReceived, this, &MainWindow::valueReceived);
+    connect(mqtt, &MqttConnector::mqttConnected, this, &MainWindow::mqttConnected);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -106,6 +110,43 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+void MainWindow::valueReceived(const ReceivedValue& value)
+{
+    int sliderVal;
+    switch (value.variable) {
+    case ReceivedValue::Vaiable::A:
+    {
+        const int maxA = ui->spinBox_Control_MAX_A->value();
+        sliderVal = value.value * (maxA-50) / 100 + 50;
+        ui->value_Control_A->setNum(sliderVal);
+        ui->verticalSlider_Control_A->setValue(sliderVal);
+/*        sliderVal = 255 - value.value*126/100;
+        ui->value_Control_MA->setNum(sliderVal);
+        ui->verticalSlider_Control_MA->setValue(sliderVal);*/
+        break;
+    }
+    case ReceivedValue::Vaiable::B:
+    {
+        const int maxB = ui->spinBox_Control_MAX_B->value();
+        sliderVal = value.value * maxB / 100;
+        ui->value_Control_B->setNum(sliderVal);
+        ui->verticalSlider_Control_B->setValue(sliderVal);
+        break;
+    }
+    case ReceivedValue::Vaiable::MA:
+    {
+        sliderVal = 255 - value.value*127/100;
+        ui->value_Control_MA->setNum(sliderVal);
+        ui->verticalSlider_Control_MA->setValue(sliderVal);
+        break;
+    }
+    }
+}
+
+void MainWindow::mqttConnected(const bool value)
+{
+    ui->mqttConnected->setCheckState(value ? Qt::CheckState::Checked : Qt::CheckState::Unchecked);
+}
 
 MainWindow::~MainWindow()
 {
@@ -193,9 +234,9 @@ void MainWindow::on_actionSynchronize_triggered(){
     dialog.setModal(true);
     const int dialogCode = dialog.exec();
     if( dialogCode == QDialog::Accepted ){
-        ui->statusBar->showMessage(QString("Start Synchronization with ET232 on port %1").arg(dialog.portShortName));
+        ui->statusBar->showMessage(QString("Start Synchronization with ET232 on port %1").arg(dialog.portName));
         ui->statusBar->setStyleSheet("color:black");
-        emit requestInit(dialog.portShortName); // see mainwindow_synchro.cpp
+        emit requestInit(dialog.portName); // see mainwindow_synchro.cpp
     }else{
         ui->statusBar->showMessage("Synchronization FAILED");
         ui->statusBar->setStyleSheet("color:red");

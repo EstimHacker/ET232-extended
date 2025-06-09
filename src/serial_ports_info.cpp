@@ -34,7 +34,6 @@ SerialPortsInfo::SerialPortsInfo(QWidget *parent) :
                  + QObject::tr("Serial Number: ")      + info.serialNumber()   + "\n"
                  + QObject::tr("Vendor Identifier: ")  + (info.hasVendorIdentifier()  ? QString::number(info.vendorIdentifier(), 16)  : QString()) + "\n"
                  + QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n"
-                 + QObject::tr("Busy: ")               + (info.isBusy()               ? QObject::tr("Yes") : QObject::tr("No"))                    + "\n"
                  ;
 
         ui->textBrowser->append(s);

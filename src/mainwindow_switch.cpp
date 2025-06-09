@@ -177,10 +177,12 @@ void MainWindow::on_comboBox_Mode_activated(int index)
     currentModeInfo->A  = ui->verticalSlider_Control_A->value();
     currentModeInfo->B  = ui->verticalSlider_Control_B->value();
     currentModeInfo->MA = ui->verticalSlider_Control_MA->value();
-    currentModeInfo->MAX= ui->spinBox_Control_MAX->value();
+    currentModeInfo->MAX_A = ui->spinBox_Control_MAX_A->value();
+    currentModeInfo->MAX_B = ui->spinBox_Control_MAX_B->value();
 
     // always restore the MAX value for this mode
-    ui->spinBox_Control_MAX->setValue(newModeInfo->MAX);
+    ui->spinBox_Control_MAX_A->setValue(newModeInfo->MAX_A);
+    ui->spinBox_Control_MAX_B->setValue(newModeInfo->MAX_B);
 
     switch( opt.onSwitchCtrl() ){
         case 0: // reset to 0
