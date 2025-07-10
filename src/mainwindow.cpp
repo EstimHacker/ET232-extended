@@ -135,7 +135,7 @@ void MainWindow::valueReceived(const ReceivedValue& value)
     }
     case ReceivedValue::Vaiable::MA:
     {
-        sliderVal = 255 - value.value*127/100;
+        sliderVal = 255 - value.value*126/100;
         ui->value_Control_MA->setNum(sliderVal);
         ui->verticalSlider_Control_MA->setValue(sliderVal);
         break;
